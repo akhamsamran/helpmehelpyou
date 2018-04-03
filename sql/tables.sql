@@ -50,7 +50,7 @@ CREATE TABLE category(
 CREATE TABLE postCategory(
 	-- both these foreign keys make 1 primary key
 	postId BINARY(16) NOT NULL,
-	profileId BINARY(16) NOT NULL,
+	categoryId BINARY(16) NOT NULL,
 	PRIMARY KEY (postId, categoryId),
 	FOREIGN KEY (postId) REFERENCES post(postId),
 	FOREIGN KEY (categoryId) REFERENCES category(categoryId)
