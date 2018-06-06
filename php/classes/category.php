@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
  * @version 4.0.0
  * @package Edu\Cnm\DataDesign
  **/
-class Profile implements \JsonSerializable {
+class Category implements \JsonSerializable {
 	use ValidateUuid;
 	/**
 	 * id for this category: primary key
@@ -243,7 +243,7 @@ class Profile implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$category= new Category ($row["categoryId"], $row["categoryName"]);
+				$category = new Category ($row["categoryId"], $row["categoryName"]);
 				$categories[$categories->key()] = $category;
 				$categories->next();
 			} catch(\Exception $exception) {
