@@ -48,6 +48,6 @@ CREATE TABLE post(
 CREATE TABLE category(
 	-- primary key
 	categoryId INT AUTO_INCREMENT NOT NULL ,
-	category VARCHAR (30) NOT NULL,
+	categoryName VARCHAR (30) NOT NULL,
 	PRIMARY KEY (categoryId)
 );

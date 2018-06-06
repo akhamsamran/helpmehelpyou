@@ -6,7 +6,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Profile
  *
- * This is what data is stored when a user creates a profile in Helpmehelpyou.
+ * This is what data is stored when a user creates a profile in Helpmehelpyou. This is for tables-2.sql.
  * This the top-level entity
  * @author Anna Khamsamran <akhamsamran1@cnm.edu>
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
