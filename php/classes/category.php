@@ -152,6 +152,42 @@ class Profile implements \JsonSerializable {
 		$parameters = ["categoryId" => $this->categoryId->getBytes(), "categoryName" => $this->categoryName];
 		$statement->execute($parameters);
 	}
+	/**
+	 * gets the Category by categoryId
+	 *
+	 * @param \PDO $pdo PDO connection objct
+	 * @param Uuid|string $categoryId category id to search for
+	 * @return Category|null Category found or null if not found
+	 * @throws \PDOException when mySQL related error occurs
+	 * @throws \TypeError when a variable is not correct data type
+	 **/
+	public static function getCategoryByCategoryId(\PDO $pdo, $categoryId) : ?Category {
+		//sanitize the string before searching
+		try{
+			$categoryId = self::validateUuid($categoryId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		//create query template
+		$query = "SELECT categoryId, categoryName FROM category WHERE categoryId = :categoryId";
+		$statement = $pdo->prepare($query);
+		//bind the category id to the place holder in the template
+		$parameters = ["categoryId" => $categoryId->getBytes()];
+		$statement->execute($parameters);
+		//grab the category from mySQL
+		try {
+			$category = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$category = new Category($row["categoryId"], $row["categoryName"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, then rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($category);
+	}
 
 
 
