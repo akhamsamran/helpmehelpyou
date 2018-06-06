@@ -53,4 +53,36 @@ class Profile implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
+	/**
+	 * accessor method for category id
+	 *
+	 * @return Uuid value of the category id
+	 **/
+	public function getCategoryId() : Uuid {
+		return($this->categoryId);
+	}
+	/**
+	 * mutator method for category id
+	 *
+	 * @param Uuid|string $newCategoryId
+	 * @throws \RangeException if $newCategoryId is not positive
+	 * @throws \TypeError if $newCategoryId is not a uuid or string
+	 **/
+	public function setCategoryId($newCategoryId) : void {
+		try {
+			$uuid = self::validateUuid($newCategoryId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		//convert and store the category id
+		$this->categoryId = $uuid;
+	}
+
+
+
+
+
+
+
 }
