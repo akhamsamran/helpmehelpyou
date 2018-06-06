@@ -14,8 +14,9 @@ CREATE TABLE profile (
 	profileFirstName VARCHAR (50) NOT NULL,
 	profileHash CHAR(128) NOT NULL,
 	profileLastName VARCHAR (50) NOT NULL,
+	profilePrivilege TINYINT UNSIGNED,
 	profileSalt CHAR(64) NOT NULL,
-	profileUserName VARCHAR (100) NOT NULL,
+	profileUsername VARCHAR (100) NOT NULL,
 	UNIQUE (profileEmail),
 	INDEX (profileEmail),
 	PRIMARY KEY (profileId)
