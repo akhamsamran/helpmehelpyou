@@ -30,4 +30,27 @@ class Profile implements \JsonSerializable {
 	 * name/description of the category this is a unique index
 	 * @var string $categoryName
 	 **/
+
+	/**
+	 * constructor for this Category
+	 *
+	 * @param Uuid|string $newCategoryId id of this Category or null if new Category
+	 * @param string $newCategoryName the Name of this Category
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds(ie strings too long, integers negative)
+	 * @throws \TypeError if data types violates type hints
+	 * @throws \Exception if some other exception occurs
+	 * @Documentation https://php.net/manual/en/language.oop5.decon.php (constructors and destructors)
+	 **/
+	public function __construct($newCategoryId, string $newCategoryName) {
+		try {
+			$this->setCategoryId($newCategoryId);
+			$this->setCategoryName($newCategoryName);
+		}
+			//determine what exception type was thrown
+		catch(\InvalidArgumentException | \RangeException | \TypeError | \Exception $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
 }
