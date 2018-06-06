@@ -107,7 +107,21 @@ class Profile implements \JsonSerializable {
 		//store the category name
 		$this->categoryName = $newCategoryName;
 	}
-
+	/**
+	 * inserts this Category into mySQL
+	 *
+	 * @param \PDO $pdp PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) : void {
+		//create query template
+		$query = "INSERT INTO category(categoryId,  categoryName) VALUES(:categoryId, :categoryName)";
+		$statement = $pdo->prepare($query);
+		//bind the member variables to the place-holders on the template
+		$parameters = ["categoryId" => $this->categoryId->getBytes(), "categoryName" => $this->categoryName];
+		$statement->execute($parameters);
+	}
 
 
 
