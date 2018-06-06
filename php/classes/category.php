@@ -137,6 +137,21 @@ class Profile implements \JsonSerializable {
 		$parameters =["categoryId" => $this->categoryId->getBytes()];
 		$statement->execute($parameters);
 	}
+	/**
+	 * updates this Category in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related error occurs
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) : void {
+		//create query template
+		$query = "UPDATE category SET categoryName = :categoryName WHERE categoryId = :categoryId";
+		$statement = $pdo->prepare($query);
+		//bind the member variables to the place-holder in the template
+		$parameters = ["categoryId" => $this->categoryId->getBytes(), "categoryName" => $this->categoryName];
+		$statement->execute($parameters);
+	}
 
 
 
