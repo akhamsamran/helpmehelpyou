@@ -116,10 +116,25 @@ class Profile implements \JsonSerializable {
 	 **/
 	public function insert(\PDO $pdo) : void {
 		//create query template
-		$query = "INSERT INTO category(categoryId,  categoryName) VALUES(:categoryId, :categoryName)";
+		$query = "INSERT INTO category(categoryId, categoryName) VALUES(:categoryId, :categoryName)";
 		$statement = $pdo->prepare($query);
 		//bind the member variables to the place-holders on the template
 		$parameters = ["categoryId" => $this->categoryId->getBytes(), "categoryName" => $this->categoryName];
+		$statement->execute($parameters);
+	}
+	/**
+	 * deletes this Category from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo) : void {
+		//create query template
+		$query = "DELETE FROM category WHERE categoryId = :categoryId";
+		$statement = $pdo->prepare($query);
+		//bind the member variables to the place holder in the template
+		$parameters =["categoryId" => $this->categoryId->getBytes()];
 		$statement->execute($parameters);
 	}
 
