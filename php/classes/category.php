@@ -225,6 +225,34 @@ class Profile implements \JsonSerializable {
 		}
 		return($categories);
 	}
+	/**
+	 * gets all Categories
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Categories found or null if not fund
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getAllCategories(\PDO $pdo) : \SPLFixedArray {
+		//create query template
+		$query = "SELECT categoryId, categoryName FROM category";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+		//built and array of categories
+		$categories = new \SplFixedArray(($statement->rowCount()));
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$category= new Category ($row["categoryId"], $row["categoryName"]);
+				$categories[$categories->key()] = $category;
+				$categories->next();
+			} catch(\Exception $exception) {
+				//if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+			return ($categories);
+		}
+	}
 
 
 
