@@ -19,10 +19,10 @@ CREATE TABLE post(
 	postId BINARY(16) NOT NULL,
 	-- where: street address
 	postAddress VARCHAR(100) NOT NULL,
-	-- why: description
-	postDescription VARCHAR(1000) NOT NULL,
 	-- what: attribute for foreign key for category
 	postCategoryId BINARY(16) NOT NULL,
+	-- why: description
+	postDescription VARCHAR(1000) NOT NULL,
 	-- when End: google calendar compatible
 	postEndDate DATE NOT NULL,
 	postEndTime DATETIME NOT NULL,
