@@ -17,6 +17,8 @@ CREATE TABLE category(
 CREATE TABLE post(
 	-- which: attribute for primary key
 	postId BINARY(16) NOT NULL,
+	-- where: street address
+	postAddress VARCHAR(100) NOT NULL,
 	-- why: description
 	postDescription VARCHAR(1000) NOT NULL,
 	-- what: attribute for foreign key for category
