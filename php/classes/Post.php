@@ -1,15 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: annakhamsamran
- * Date: 6/6/18
- * Time: 11:38 AM
- */
-
 namespace Edu\Cnm\Helpmehelpyou;
+require_once("autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
+use Ramsey\Uuid\Uuid;
+/**
+ *
+ * This is the Post class for data about concurrences includes the why (description), what(foreign key for category),
+ * where(google-maps compatible lat and long), who (owner of the post) and when (calendar compatible?) it will happen.
+ * @author Anna Khamsamran <akhamsamran1@cnm.edu>
+ *
+ **/
 
 
-class Post {
+
+class Post implements \JsonSerializable {
+	use ValidateUuid;
+
+
 
 }
 
