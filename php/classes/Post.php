@@ -28,15 +28,15 @@ class Post implements \JsonSerializable {
 	 **/
 	private $postAddress;
 	/**
-	 * description for this post
-	 * @var string $postDescription
-	 **/
-	private $postDescription;
-	/**
 	 * category for this post
 	 * @var Uuid $postCategory
 	 **/
 	private $postCategory;
+	/**
+	 * description for this post
+	 * @var string $postDescription
+	 **/
+	private $postDescription;
 	/**
 	 * end date of this post(the date the activity ends)
 	 * @var date $postEndDate
@@ -88,8 +88,8 @@ class Post implements \JsonSerializable {
 	 *
 	 * @param UUID|string $newPostId id of this Post or null if a new Post
 	 * @param string $newPostAddress of this Post
-	 * @param string $newPostDescription of this Post
 	 * @param UUID|string $newPostCategory for this Post
+	 * @param string $newPostDescription of this Post
 	 * @param \DateTime $newPostEndDate for this Post
 	 * @param \DateTime $newPostEndTime for this Post
 	 * @param float $newPostLat for this Post
@@ -101,9 +101,8 @@ class Post implements \JsonSerializable {
 	 * @param \DateTimeZone $newPostTimeZone for this Post
 	 **/
 
-
-
-
+	public function __construct($newPostId, $newPostDescription) {
+	}
 
 
 }
