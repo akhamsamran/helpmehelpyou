@@ -8,11 +8,14 @@
     "ramsey/uuid": "@stable",
     "roave/better-reflection": "dev-master#a402048",
     "swiftmailer/swiftmailer": "@stable",
-    "Lcobucci/jwt": "3.2"
+    "lcobucci/jwt": "3.2",
+    "pubnub/pubnub": "~4.0.0"
   },
+
+
 
   "scripts": {
     "apigen": "./vendor/bin/apigen generate ./php/classes/*.php --destination doc",
-    "phpunit": "./vendor/bin/phpunit -c ./php/classes/Test --coverage-html coverage"
-  }
+    "phpunit": "./vendor/bin/phpunit -c ./php/classes/Test --coverage-html coverage",
+    "apiUnit" : "./vendor/bin/phpunit -c ./php/classes/ApiTest --coverage-html coverage"  }
 }
