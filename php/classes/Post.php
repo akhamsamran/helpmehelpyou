@@ -15,6 +15,7 @@ use Ramsey\Uuid\Uuid;
 
 class Post implements \JsonSerializable {
 	use ValidateUuid;
+	use ValidateDate;
 
 
 	/**
@@ -39,7 +40,7 @@ class Post implements \JsonSerializable {
 	private $postDescription;
 	/**
 	 * end date of this post(the date the activity ends)
-	 * @var date $postEndDate
+	 * @var \DateTime $postEndDate
 	 **/
 	private $postEndDate;
 	/**
@@ -101,7 +102,7 @@ class Post implements \JsonSerializable {
 	 * @param \DateTimeZone $newPostTimeZone for this Post
 	 **/
 
-	public function __construct($newPostId, $newPostDescription) {
+	public function __construct($newPostId, $newPostCategory, string $newPostDescription, $newPostEndDate = null, $newPostEndTime = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStartDate = null, $newPostStartTime = null, $newPostTimeZone {
 	}
 
 
@@ -109,6 +110,19 @@ class Post implements \JsonSerializable {
 
 
 
+
+
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() : array {
+		$fields = get_object_vars($this);
+		$fields["postId"] = $this->postId->toString();
+		return($fields);
+	}
 }
 
 

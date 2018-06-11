@@ -19,9 +19,20 @@ updated to allow for people to advertise and accept services. (a sort of fusion 
 
 Questions:
 Would it be better to just do 1 table for the posts and allow people to search by location or time or type?  
-What is the best way to find concurrences? It has to be a 3-way sort: location/time/type.  All three from one person
+What is the best way to find concurrences? It has to be a 3-way sort: location/time/type.  
+All three from one person
 must match the three from another person for the concurrence to be identified.
 A calendar app is great for time and type.
 A map app is great for location and type.
 What would allow for interaction between these? 
 It is 3-dimensional, so what does it look like? How would it be best displayed for usefulness?
+
+QUESTIONS TO for Post Structure:
+Do I want to store start and end times in a different table? 
+	MAYBE because both start and end times are the same type of data. 
+		DATE, TIME, DATETIME, TIMESTAMP, and YEAR. SHould I separate it further into date, time and year? 
+		This would allow for more types of searches and better sorting, but more attributes to deal with.
+		Timestamp can only be used once in a table?, but it changes every time you access it. 
+		can I store both the date and time in the same field, or should I separate them? yes you can store in DateTime, but less easy to sort? maybe, maybe not.
+Do I want to store lat and long in a different table? 
+	NO because lat and long are different and can be unique to each Post object.
