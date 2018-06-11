@@ -7,7 +7,7 @@
     "lcobucci/jwt": "3.2",
     "ramsey/uuid": "@stable",
     "phpdocumentor/phpdocumentor": "dev-master",
-    "adoy/oauth2": "@stable",
+    "adoy/oauth2": "@stable"
 
   },
 
