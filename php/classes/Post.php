@@ -115,6 +115,32 @@ class Post implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
+	/**
+	 * accessor method for post id
+	 *
+	 * @return Uuid value of post id
+	 **/
+	public function getPostId() : Uuid {
+		return($this->postId);
+	}
+	/**
+	 * mutator method for post id
+	 *
+	 * @param Uuid/string $newPostId new value of post id
+	 * @throws \RangeException if $newPostId is not positive
+	 * @throws \TypeError if $newPostId is not a uuid.e
+	 **/
+	public function setPostId( $newPostId) : void {
+		try {
+			$uuid = self::validateUuid($newPostId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+
+		// convert and store the post id
+		$this->PostId = $uuid;
+	}
 
 
 
