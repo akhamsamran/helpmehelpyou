@@ -88,9 +88,32 @@ class Post implements \JsonSerializable {
 	 * @param UUID|string $newPostProfileId the owner of this Post
 	 * @param \DateTime $newPostStart for this Post
 	 * @param \DateTimeZone $newPostTimeZone for this Post
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
 
-	public function __construct($newPostId, $newPostCategory, string $newPostDescription, $newPostEnd = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStart = null, $newPostTimeZone {
+	public function __construct($newPostId, $newPostAddress, $newPostCategory, string $newPostDescription, $newPostEnd = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStart = null, $newPostTimeZone {
+		try {
+			$this->setPostId($newPostId);
+			$this->setPostAddress($newPostAddress);
+			$this->setPostCategory($newPostCategory);
+			$this->setPostDescription($newPostDescription);
+			$this->setPostEnd($newPostEnd);
+			$this->setPostLat($newPostLat);
+			$this->setPostLocation($newPostLocation);
+			$this->setPostLong($newPostLong);
+			$this->setPostProfileId($newPostProfileId);
+			$this->setPostStart($newPostStart);
+			$this->setPostTimeZone($newPostTimeZone);
+		}
+			//determine what exception type was thrown
+		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
 	}
 
 
