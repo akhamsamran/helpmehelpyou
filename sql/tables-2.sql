@@ -24,8 +24,7 @@ CREATE TABLE post(
 	-- why: description
 	postDescription VARCHAR(1000) NOT NULL,
 	-- when End: google calendar compatible
-	postEndDate DATE NOT NULL,
-	postEndTime DATETIME NOT NULL,
+	postEnd DATETIME NOT NULL,
 	-- where: this must be compatible with google maps
 	postLat DECIMAL(12,9) NOT NULL,
 	postLocation VARCHAR(100) NOT NULL,
@@ -33,8 +32,7 @@ CREATE TABLE post(
 	-- who: attribute for foreign key for profile
 	postProfileId BINARY(16) NOT NULL,
 	-- when Start: Google calendar compatible
-	postStartDate DATE NOT NULL,
-	postStartTime DATETIME NOT NULL,
+	postStart DATETIME NOT NULL,
 	postTimeZone VARCHAR(12) NOT NULL,
 	-- set pk and fk
 	PRIMARY KEY (postId),

@@ -39,15 +39,10 @@ class Post implements \JsonSerializable {
 	 **/
 	private $postDescription;
 	/**
-	 * end date of this post(the date the activity ends)
-	 * @var \DateTime $postEndDate
+	 * end time and date of this post
+	 * @var \DateTime $postEnd
 	 **/
-	private $postEndDate;
-	/**
-	 * end time of this post
-	 * @var \DateTime $postEndTime
-	 **/
-	private $postEndTime;
+	private $postEnd;
 	/**
 	 * latitude for the location of the post
 	 * @var float $postLatitude
@@ -69,15 +64,10 @@ class Post implements \JsonSerializable {
 	 **/
 	private $postProfileId;
 	/**
-	 * the start date of the post(when does the activity actually happen?)
-	 * @var \DateTime $postStartDate
+	 * post start time and date
+	 * @var \DateTime $postStart
 	 **/
-	private $postStartDate;
-	/**
-	 * post start time
-	 * @var \DateTime $postStartTime
-	 **/
-	private $postStartTime;
+	private $postStart;
 	/**
 	 * post time zone (in which time zone is this happening?)
 	 * @var \DateTimeZone $postTimeZone
@@ -91,18 +81,16 @@ class Post implements \JsonSerializable {
 	 * @param string $newPostAddress of this Post
 	 * @param UUID|string $newPostCategory for this Post
 	 * @param string $newPostDescription of this Post
-	 * @param \DateTime $newPostEndDate for this Post
-	 * @param \DateTime $newPostEndTime for this Post
+	 * @param \DateTime $newPostEnd for this Post
 	 * @param float $newPostLat for this Post
 	 * @param string $newPostLocation for this Post
 	 * @param float $newPostLong for this Post
 	 * @param UUID|string $newPostProfileId the owner of this Post
-	 * @param \DateTime $newPostStartDate for this Post
-	 * @param \DateTime $newPostStartTime for this Post
+	 * @param \DateTime $newPostStart for this Post
 	 * @param \DateTimeZone $newPostTimeZone for this Post
 	 **/
 
-	public function __construct($newPostId, $newPostCategory, string $newPostDescription, $newPostEndDate = null, $newPostEndTime = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStartDate = null, $newPostStartTime = null, $newPostTimeZone {
+	public function __construct($newPostId, $newPostCategory, string $newPostDescription, $newPostEnd = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStart = null, $newPostTimeZone {
 	}
 
 
