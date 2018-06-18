@@ -207,10 +207,10 @@ class Post implements \JsonSerializable {
 	}
 	/**
 	 * mutator method for post description
-	 * @param string $newPostDescription
+	 * @param string $newPostDescription new value for the description
 	 * @throws \InvalidArgumentException if $newPostDescription is not a string or insecure
-	 * @throws \RangeException if $newPostAddress is > 1000 characters
-	 * @throws \TypeError if $newPostAddress is not a string
+	 * @throws \RangeException if $newPostDescription is > 1000 characters
+	 * @throws \TypeError if $newPostDescription is not a string
 	 **/
 	public function setPostDescription(string $newPostDescription): void {
 // verify the description content is secure
@@ -226,6 +226,33 @@ class Post implements \JsonSerializable {
 		// store the description content
 		$this->postDescription= $newPostDescription;
 	}
+
+	/**
+	 * accessor method for post end
+	 * @returns \DateTime $postEnd the time and date the activity will end
+	 **/
+	public function getPostEnd(): \DateTime {
+		return ($this->postEnd);
+	}
+	/**
+	 * mutator method for the post end
+	 *
+	 * @param \DateTime $newPostEnd new value for the post end
+	 * @throws \InvalidArgumentException if $newPostEnd is not a valid object or string
+	 * @throws \RangeException if $newPostEnd is a date that does not exist
+	 **/
+	public function setPostEnd($newPostEnd = null) : void {
+
+		// store the like date using the ValidateDate trait
+		try {
+			$newPostEnd = self::validateDateTime($newPostEnd);
+		} catch(\InvalidArgumentException | \RangeException $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->postEnd = $newPostEnd;
+	}
+
 
 
 
