@@ -253,6 +253,35 @@ class Post implements \JsonSerializable {
 		$this->postEnd = $newPostEnd;
 	}
 
+	/**
+	 * accessor method for post latitude
+	 *
+	 * @returns float $postLat value of the post latitude
+	 **/
+	public function getPostLat(): float {
+		return ($this->postLat);
+	}
+	/**
+	 * mutator method for post latitude
+	 *
+	 * @param float $newPostLat new value for the new post latitude
+	 * @throws \InvalidArgumentException if $newPostLat is not a float or insecure
+	 * @throws \RangeException if $newPostLat is not within -90 to 90
+	 * @throws \TypeError if $newPostLat is not a float
+	 **/
+	public function setPostLat(float $newPostLat) : void {
+		// verify the latitude exists on earth
+		if(floatval($newPostLat) > 90) {
+			throw(new \RangeException("post latitude is not between -90 and 90"));
+		}
+		if (floatval($newPostLat) < -90) {
+			throw(new \RangeException("post latitude is not between -90 and 90"));
+		}
+		// store the latitude
+		$this->postLat = $newPostLat;
+	}
+
+
 
 
 
