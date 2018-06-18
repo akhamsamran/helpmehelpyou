@@ -243,7 +243,7 @@ class Post implements \JsonSerializable {
 	 **/
 	public function setPostEnd($newPostEnd = null) : void {
 
-		// store the like date using the ValidateDate trait
+		// store the post end using the ValidateDate trait
 		try {
 			$newPostEnd = self::validateDateTime($newPostEnd);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
