@@ -11,8 +11,7 @@ use Ramsey\Uuid\Uuid;
  *
  **/
 
-
-
+/**TODO: check: use ValidateDate vs ValidateDateTime **/
 class Post implements \JsonSerializable {
 	use ValidateUuid;
 	use ValidateDate;
