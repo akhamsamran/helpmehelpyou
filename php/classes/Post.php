@@ -95,7 +95,7 @@ class Post implements \JsonSerializable {
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
 
-	public function __construct($newPostId, $newPostAddress, $newPostCategoryId, string $newPostDescription, $newPostEnd = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStart = null, $newPostTimeZone {
+	public function __construct($newPostId, string $newPostAddress, $newPostCategoryId, string $newPostDescription, $newPostEnd = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStart = null, $newPostTimeZone {
 		try {
 			$this->setPostId($newPostId);
 			$this->setPostAddress($newPostAddress);
@@ -157,9 +157,6 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostAddress is > 100 characters
 	 * @throws \TypeError if $newPostAddress is not a string
 	 **/
-	/**
-	 * @param string $postAddress
-	 */
 	public function setPostAddress(string $newPostAddress): void {
 // verify the address content is secure
 		$newPostAddress = trim($newPostAddress);
@@ -199,6 +196,37 @@ class Post implements \JsonSerializable {
 		// convert and store the post category id
 		$this->postCategoryId = $uuid;
 	}
+
+	/**
+	 * accessor method for post description
+	 *
+	 * @return string value of the post description
+	 **/
+	public function getPostDescription(): string {
+		return ($this->postDescription);
+	}
+	/**
+	 * mutator method for post description
+	 * @param string $newPostDescription
+	 * @throws \InvalidArgumentException if $newPostDescription is not a string or insecure
+	 * @throws \RangeException if $newPostAddress is > 1000 characters
+	 * @throws \TypeError if $newPostAddress is not a string
+	 **/
+	public function setPostDescription(string $newPostDescription): void {
+// verify the description content is secure
+		$newPostDescription = trim($newPostDescription);
+		$newPostDescription = filter_var($newPostDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newPostDescription) === true) {
+			throw(new \InvalidArgumentException("description content is empty or insecure"));
+		}
+		// verify the address will fit in the database
+		if(strlen($newPostDescription) > 1000) {
+			throw(new \RangeException("description too large"));
+		}
+		// store the description content
+		$this->postDescription= $newPostDescription;
+	}
+
 
 
 
