@@ -282,6 +282,38 @@ class Post implements \JsonSerializable {
 	}
 
 
+	/**
+	 * accessor method for post location
+	 *
+	 * @return string value of post location
+	 **/
+	public function getPostLocation() : string {
+		return($this->PostLocation);
+	}
+	/**
+	 * mutator method for post location
+	 *
+	 * @param string $newPostLocation new value of post location
+	 * @throws \InvalidArgumentException if $newPostLocation is not a string or insecure
+	 * @throws \RangeException if $newPostLocation is > 200 characters
+	 * @throws \TypeError if $newPostLocation is not a string
+	 **/
+	public function setPostLocation(string $newPostLocation) : void {
+		// verify the post location is secure
+		$newPostLocation = trim($newPostLocation);
+		$newPostLocation = filter_var($newPostLocation, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newPostLocation) === true) {
+			throw(new \InvalidArgumentException("post location is empty or insecure"));
+		}
+		// verify the location will fit in the database
+		if(strlen($newPostLocation) > 200) {
+			throw(new \RangeException("post location too large"));
+		}
+		// store the artist
+		$this->postLocation = $newPostLocation;
+	}
+
+
 
 
 
