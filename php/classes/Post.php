@@ -69,10 +69,10 @@ class Post implements \JsonSerializable {
 	 **/
 	private $postStart;
 	/**
-	 * post time zone (in which time zone is this happening?)
-	 * @var \DateTimeZone $postTimeZone
+	 * post time (when this was posted, can also give information about the time zone)
+	 * @var \DateTime $postTime
 	 **/
-	private $postTimeZone;
+	private $postTime;
 
 	/**
 	 * the constructor for post class
@@ -87,7 +87,7 @@ class Post implements \JsonSerializable {
 	 * @param float $newPostLong for this Post
 	 * @param UUID|string $newPostProfileId the owner of this Post
 	 * @param \DateTime $newPostStart for this Post
-	 * @param \DateTimeZone $newPostTimeZone for this Post
+	 * @param \DateTime $newPostTime time of posting for this Post
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
@@ -95,7 +95,7 @@ class Post implements \JsonSerializable {
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
 
-	public function __construct($newPostId, string $newPostAddress, $newPostCategoryId, string $newPostDescription, $newPostEnd = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStart = null, $newPostTimeZone {
+	public function __construct($newPostId, string $newPostAddress, $newPostCategoryId, string $newPostDescription, $newPostEnd = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStart = null, $newPostTime = null) {
 		try {
 			$this->setPostId($newPostId);
 			$this->setPostAddress($newPostAddress);
@@ -107,7 +107,7 @@ class Post implements \JsonSerializable {
 			$this->setPostLong($newPostLong);
 			$this->setPostProfileId($newPostProfileId);
 			$this->setPostStart($newPostStart);
-			$this->setPostTimeZone($newPostTimeZone);
+			$this->setPostTime($newPostTime);
 		}
 			//determine what exception type was thrown
 		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -367,16 +367,16 @@ class Post implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for post start date and time
+	 * accessor method for post start
 	 * @returns \DateTime $postStart the time and date the activity will end
 	 **/
 	public function getPostStart(): \DateTime {
 		return ($this->postStart);
 	}
 	/**
-	 * mutator method for the post start date and time
+	 * mutator method for the post start
 	 *
-	 * @param \DateTime $newPostStart new value for the post start
+	 * @param \DateTime $newPostStart new value for the post end
 	 * @throws \InvalidArgumentException if $newPostStart is not a valid object or string
 	 * @throws \RangeException if $newPostStart is a date that does not exist
 	 **/
@@ -390,6 +390,37 @@ class Post implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		$this->postStart = $newPostStart;
+	}
+
+	/**
+	 * accessor method for post time
+	 *
+	 * @return \DateTime value of post time
+	 **/
+	public function getPostTime() : \DateTime {
+		return($this->postTime);
+	}
+	/**
+	 * mutator method for post time
+	 *
+	 * @param \DateTime|string|null $newPostTime post date as a DateTime object or string (or null to load the current time)
+	 * @throws \InvalidArgumentException if $newPostTime is not a valid object or string
+	 * @throws \RangeException if $newPostTime is a time/date that does not exist
+	 **/
+	public function setPostTime($newPostTime = null) : void {
+		// base case: if the time is null, use the current date and time
+		if($newPostTime === null) {
+			$this->postTime = new \DateTime();
+			return;
+		}
+		// store the post time/date using the ValidateDate trait
+		try {
+			$newPostTime = self::validateDateTime($newPostTime);
+		} catch(\InvalidArgumentException | \RangeException $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->postTime = $newPostTime;
 	}
 
 

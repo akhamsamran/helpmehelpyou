@@ -33,7 +33,7 @@ CREATE TABLE post(
 	postProfileId BINARY(16) NOT NULL,
 	-- when Start: Google calendar compatible
 	postStart DATETIME NOT NULL,
-	postTimeZone VARCHAR(12) NOT NULL,
+	postTime DATETIME NOT NULL,
 	-- set pk and fk
 	PRIMARY KEY (postId),
 	FOREIGN KEY (postProfileId) REFERENCES profile(profileId),
