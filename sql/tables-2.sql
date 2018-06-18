@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS profile;
 -- table for categories (these are the tags to classify the type of posts)
 CREATE TABLE category(
 	-- primary key
-	categoryId INT AUTO_INCREMENT NOT NULL ,
+	categoryId BINARY(16) NOT NULL ,
 	categoryName VARCHAR (30) NOT NULL,
 	PRIMARY KEY (categoryId)
 );

@@ -128,7 +128,7 @@ class Post implements \JsonSerializable {
 	 *
 	 * @param Uuid/string $newPostId new value of post id
 	 * @throws \RangeException if $newPostId is not positive
-	 * @throws \TypeError if $newPostId is not a uuid.e
+	 * @throws \TypeError if $newPostId is not a uuid
 	 **/
 	public function setPostId( $newPostId) : void {
 		try {
@@ -145,9 +145,6 @@ class Post implements \JsonSerializable {
 	 *
 	 * @return string value of post address
 	 **/
-	/**
-	 * @return string
-	 */
 	public function getPostAddress(): string {
 		return $this->postAddress;
 	}
@@ -175,7 +172,29 @@ class Post implements \JsonSerializable {
 		// store the tweet content
 		$this->postAddress = $newPostAddress;
 	}
-
+	/**
+	 * accessor method for the post category
+	 *
+	 * @return Uuid value of the category for this post
+	 **/
+	public function getPostCategory(): Uuid {
+		retrun $this->postCategory;
+	}
+	/**
+	 * mutator method for the post category
+	 *
+	 * @param Uuid/string $newPostCategory for the value of the new post category
+	 * @throws \RangeException if the post category is not positive
+	 * @throws \TypeError if the post category is not a uuid
+	 **/
+	public function setPostCategory( $newPostCategory): void {
+		try {
+			$uuid = self::validateUuid($newPostCategory);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
 
 
 
