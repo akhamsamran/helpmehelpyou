@@ -139,9 +139,42 @@ class Post implements \JsonSerializable {
 		}
 
 		// convert and store the post id
-		$this->PostId = $uuid;
+		$this->postId = $uuid;
 	}
-
+	/** accessor method for post address
+	 *
+	 * @return string value of post address
+	 **/
+	/**
+	 * @return string
+	 */
+	public function getPostAddress(): string {
+		return $this->postAddress;
+	}
+	/** mutator method for the post address
+	 *
+	 * @param string $newPostAddress new value of post address
+	 * @throws \InvalidArgumentException if $newPostAddress is not a string or insecure
+	 * @throws \RangeException if $newPostAddress is > 100 characters
+	 * @throws \TypeError if $newPostAddress is not a string
+	 **/
+	/**
+	 * @param string $postAddress
+	 */
+	public function setPostAddress(string $newPostAddress): void {
+// verify the address content is secure
+		$newPostAddress = trim($newPostAddress);
+		$newPostAddress = filter_var($newPostAddress, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newPostAddress) === true) {
+			throw(new \InvalidArgumentException("address content is empty or insecure"));
+		}
+		// verify the address will fit in the database
+		if(strlen($newPostAddress) > 140) {
+			throw(new \RangeException("address too large"));
+		}
+		// store the tweet content
+		$this->postAddress = $newPostAddress;
+	}
 
 
 
