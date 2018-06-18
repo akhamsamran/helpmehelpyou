@@ -366,6 +366,32 @@ class Post implements \JsonSerializable {
 		$this->postProfileId = $uuid;
 	}
 
+	/**
+	 * accessor method for post start date and time
+	 * @returns \DateTime $postStart the time and date the activity will end
+	 **/
+	public function getPostStart(): \DateTime {
+		return ($this->postStart);
+	}
+	/**
+	 * mutator method for the post start date and time
+	 *
+	 * @param \DateTime $newPostStart new value for the post start
+	 * @throws \InvalidArgumentException if $newPostStart is not a valid object or string
+	 * @throws \RangeException if $newPostStart is a date that does not exist
+	 **/
+	public function setPostStart($newPostStart = null) : void {
+
+		// store the post start using the ValidateDate trait
+		try {
+			$newPostStart = self::validateDateTime($newPostStart);
+		} catch(\InvalidArgumentException | \RangeException $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->postStart = $newPostStart;
+	}
+
 
 
 
