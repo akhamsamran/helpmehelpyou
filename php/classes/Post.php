@@ -30,9 +30,9 @@ class Post implements \JsonSerializable {
 	private $postAddress;
 	/**
 	 * category for this post
-	 * @var Uuid $postCategory
+	 * @var Uuid $postCategoryId
 	 **/
-	private $postCategory;
+	private $postCategoryId;
 	/**
 	 * description for this post
 	 * @var string $postDescription
@@ -79,7 +79,7 @@ class Post implements \JsonSerializable {
 	 *
 	 * @param UUID|string $newPostId id of this Post or null if a new Post
 	 * @param string $newPostAddress of this Post
-	 * @param UUID|string $newPostCategory for this Post
+	 * @param UUID|string $newPostCategoryId for this Post
 	 * @param string $newPostDescription of this Post
 	 * @param \DateTime $newPostEnd for this Post
 	 * @param float $newPostLat for this Post
@@ -95,11 +95,11 @@ class Post implements \JsonSerializable {
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
 
-	public function __construct($newPostId, $newPostAddress, $newPostCategory, string $newPostDescription, $newPostEnd = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStart = null, $newPostTimeZone {
+	public function __construct($newPostId, $newPostAddress, $newPostCategoryId, string $newPostDescription, $newPostEnd = null, float $newPostLat, string $newPostLocation, float $newPostLong, $newPostProfileId, $newPostStart = null, $newPostTimeZone {
 		try {
 			$this->setPostId($newPostId);
 			$this->setPostAddress($newPostAddress);
-			$this->setPostCategory($newPostCategory);
+			$this->setPostCategoryId($newPostCategoryId);
 			$this->setPostDescription($newPostDescription);
 			$this->setPostEnd($newPostEnd);
 			$this->setPostLat($newPostLat);
@@ -115,6 +115,7 @@ class Post implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
+
 	/**
 	 * accessor method for post id
 	 *
@@ -141,12 +142,13 @@ class Post implements \JsonSerializable {
 		// convert and store the post id
 		$this->postId = $uuid;
 	}
+
 	/** accessor method for post address
 	 *
 	 * @return string value of post address
 	 **/
 	public function getPostAddress(): string {
-		return $this->postAddress;
+		return ($this->postAddress);
 	}
 	/** mutator method for the post address
 	 *
@@ -173,27 +175,29 @@ class Post implements \JsonSerializable {
 		$this->postAddress = $newPostAddress;
 	}
 	/**
-	 * accessor method for the post category
+	 * accessor method for the post categoryId
 	 *
-	 * @return Uuid value of the category for this post
+	 * @return Uuid value of the category id for this post
 	 **/
-	public function getPostCategory(): Uuid {
-		retrun $this->postCategory;
+	public function getPostCategoryId(): Uuid {
+		return ($this->postCategoryId);
 	}
 	/**
-	 * mutator method for the post category
+	 * mutator method for the post category id
 	 *
-	 * @param Uuid/string $newPostCategory for the value of the new post category
+	 * @param Uuid/string $newPostCategoryId for the value of the new post category
 	 * @throws \RangeException if the post category is not positive
-	 * @throws \TypeError if the post category is not a uuid
+	 * @throws \TypeError if the post category Id is not a uuid
 	 **/
-	public function setPostCategory( $newPostCategory): void {
+	public function setPostCategoryId( $newPostCategoryId) : void {
 		try {
-			$uuid = self::validateUuid($newPostCategory);
+			$uuid = self::validateUuid($newPostCategoryId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+		// convert and store the post category id
+		$this->postCategoryId = $uuid;
 	}
 
 
