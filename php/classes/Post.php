@@ -107,8 +107,7 @@ class Post implements \JsonSerializable {
 			$this->setPostProfileId($newPostProfileId);
 			$this->setPostStart($newPostStart);
 			$this->setPostTime($newPostTime);
-		}
-			//determine what exception type was thrown
+		} //determine what exception type was thrown
 		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -120,9 +119,10 @@ class Post implements \JsonSerializable {
 	 *
 	 * @return Uuid value of post id
 	 **/
-	public function getPostId() : Uuid {
-		return($this->postId);
+	public function getPostId(): Uuid {
+		return ($this->postId);
 	}
+
 	/**
 	 * mutator method for post id
 	 *
@@ -130,7 +130,7 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostId is not positive
 	 * @throws \TypeError if $newPostId is not a uuid
 	 **/
-	public function setPostId( $newPostId) : void {
+	public function setPostId($newPostId): void {
 		try {
 			$uuid = self::validateUuid($newPostId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -149,6 +149,7 @@ class Post implements \JsonSerializable {
 	public function getPostAddress(): string {
 		return ($this->postAddress);
 	}
+
 	/** mutator method for the post address
 	 *
 	 * @param string $newPostAddress new value of post address
@@ -170,6 +171,7 @@ class Post implements \JsonSerializable {
 		// store the post content
 		$this->postAddress = $newPostAddress;
 	}
+
 	/**
 	 * accessor method for the post categoryId
 	 *
@@ -178,6 +180,7 @@ class Post implements \JsonSerializable {
 	public function getPostCategoryId(): Uuid {
 		return ($this->postCategoryId);
 	}
+
 	/**
 	 * mutator method for the post category id
 	 *
@@ -185,7 +188,7 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if the post category is not positive
 	 * @throws \TypeError if the post category Id is not a uuid
 	 **/
-	public function setPostCategoryId( $newPostCategoryId) : void {
+	public function setPostCategoryId($newPostCategoryId): void {
 		try {
 			$uuid = self::validateUuid($newPostCategoryId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -204,6 +207,7 @@ class Post implements \JsonSerializable {
 	public function getPostDescription(): string {
 		return ($this->postDescription);
 	}
+
 	/**
 	 * mutator method for post description
 	 * @param string $newPostDescription new value for the description
@@ -223,7 +227,7 @@ class Post implements \JsonSerializable {
 			throw(new \RangeException("description too large"));
 		}
 		// store the description content
-		$this->postDescription= $newPostDescription;
+		$this->postDescription = $newPostDescription;
 	}
 
 	/**
@@ -233,6 +237,7 @@ class Post implements \JsonSerializable {
 	public function getPostEnd(): \DateTime {
 		return ($this->postEnd);
 	}
+
 	/**
 	 * mutator method for the post end
 	 *
@@ -240,7 +245,7 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newPostEnd is not a valid object or string
 	 * @throws \RangeException if $newPostEnd is a date that does not exist
 	 **/
-	public function setPostEnd($newPostEnd = null) : void {
+	public function setPostEnd($newPostEnd = null): void {
 
 		// store the post end using the ValidateDate trait
 		try {
@@ -260,6 +265,7 @@ class Post implements \JsonSerializable {
 	public function getPostLat(): float {
 		return ($this->postLat);
 	}
+
 	/**
 	 * mutator method for post latitude
 	 *
@@ -268,12 +274,12 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostLat is not within -90 to 90
 	 * @throws \TypeError if $newPostLat is not a float
 	 **/
-	public function setPostLat(float $newPostLat) : void {
+	public function setPostLat(float $newPostLat): void {
 		// verify the latitude exists on earth
 		if(floatval($newPostLat) > 90) {
 			throw(new \RangeException("post latitude is not between -90 and 90"));
 		}
-		if (floatval($newPostLat) < -90) {
+		if(floatval($newPostLat) < -90) {
 			throw(new \RangeException("post latitude is not between -90 and 90"));
 		}
 		// store the latitude
@@ -286,9 +292,10 @@ class Post implements \JsonSerializable {
 	 *
 	 * @return string value of post location
 	 **/
-	public function getPostLocation() : string {
-		return($this->PostLocation);
+	public function getPostLocation(): string {
+		return ($this->PostLocation);
 	}
+
 	/**
 	 * mutator method for post location
 	 *
@@ -297,7 +304,7 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostLocation is > 200 characters
 	 * @throws \TypeError if $newPostLocation is not a string
 	 **/
-	public function setPostLocation(string $newPostLocation) : void {
+	public function setPostLocation(string $newPostLocation): void {
 		// verify the post location is secure
 		$newPostLocation = trim($newPostLocation);
 		$newPostLocation = filter_var($newPostLocation, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -317,9 +324,10 @@ class Post implements \JsonSerializable {
 	 *
 	 * @return float value of post longitude
 	 **/
-	public function getPostLong() : float {
-		return($this->PostLong);
+	public function getPostLong(): float {
+		return ($this->PostLong);
 	}
+
 	/** mutator method for post longitude
 	 *
 	 * @param float $newPostLong new value of post longitude
@@ -327,12 +335,12 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostLong is not within -180 to 180
 	 * @throws \TypeError if $newPostLong is not a float
 	 **/
-	public function setPostLong(float $newPostLong) : void {
+	public function setPostLong(float $newPostLong): void {
 		// verify the latitude exists on earth
 		if(floatval($newPostLong) > 180) {
 			throw(new \RangeException("post longitude is not between -180 and 180"));
 		}
-		if (floatval($newPostLong) < -180) {
+		if(floatval($newPostLong) < -180) {
 			throw(new \RangeException("post longitude is not between -180 and 180"));
 		}
 		// store the latitude
@@ -347,6 +355,7 @@ class Post implements \JsonSerializable {
 	public function getPostProfileId(): Uuid {
 		return ($this->postProfileId);
 	}
+
 	/**
 	 * mutator method for the post profile id
 	 *
@@ -354,7 +363,7 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if the post profile id is not positive
 	 * @throws \TypeError if the post profile Id is not a uuid
 	 **/
-	public function setPostProfileId( $newPostProfileId) : void {
+	public function setPostProfileId($newPostProfileId): void {
 		try {
 			$uuid = self::validateUuid($newPostProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -372,6 +381,7 @@ class Post implements \JsonSerializable {
 	public function getPostStart(): \DateTime {
 		return ($this->postStart);
 	}
+
 	/**
 	 * mutator method for the post start
 	 *
@@ -379,7 +389,7 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newPostStart is not a valid object or string
 	 * @throws \RangeException if $newPostStart is a date that does not exist
 	 **/
-	public function setPostStart($newPostStart = null) : void {
+	public function setPostStart($newPostStart = null): void {
 
 		// store the post start using the ValidateDate trait
 		try {
@@ -396,9 +406,10 @@ class Post implements \JsonSerializable {
 	 *
 	 * @return \DateTime value of post time
 	 **/
-	public function getPostTime() : \DateTime {
-		return($this->postTime);
+	public function getPostTime(): \DateTime {
+		return ($this->postTime);
 	}
+
 	/**
 	 * mutator method for post time
 	 *
@@ -406,7 +417,7 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newPostTime is not a valid object or string
 	 * @throws \RangeException if $newPostTime is a time/date that does not exist
 	 **/
-	public function setPostTime($newPostTime = null) : void {
+	public function setPostTime($newPostTime = null): void {
 		// base case: if the time is null, use the current date and time
 		if($newPostTime === null) {
 			$this->postTime = new \DateTime();
@@ -423,11 +434,413 @@ class Post implements \JsonSerializable {
 	}
 
 
+	/**TODO: write queries, gets, deletes, etc:**/
+
+
+	/**
+	 * inserts this Post into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo): void {
+		// create query template
+		$query = "INSERT INTO post(
+			postId,
+			postAddress,
+			postCategoryId,
+			postDescription,
+			postEnd,
+			postLat,
+			postLocation,
+			postLong,
+			postProfileId,
+			postStart,
+			postTime
+			) 
+			VALUES(
+			:postId,
+			:postAddress,
+			:postCategoryId,
+			:postDescription,
+			:postEnd,
+			:postLat,
+			:postLocation,
+			:postLong,
+			:postProfileId,
+			:postStart,
+			:postTime)";
+		$statement = $pdo->prepare($query);
+		// bind the member variables to the place holders in the template
+		$parameters = [
+			"postId" => $this->postId->getBytes(),
+			"postAddress" => $this->postAddress,
+			"postCategoryId" => $this->postCategoryId,
+			"postDescription" => $this->postDescription,
+			"postEnd" => $this->postEnd,
+			"postLat" => $this->postLat,
+			"postLocation" => $this->postLocation,
+			"postLong" => $this->postLong,
+			"postProfileId" => $this->postProfileId,
+			"postStart" => $this->postStart,
+			"postTime" => $this->postTime
+		];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * deletes this Post from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo): void {
+		// create query template
+		$query = "DELETE FROM post WHERE postId = :postId";
+		$statement = $pdo->prepare($query);
+		// bind the member variables to the place holder in the template
+		$parameters = ["postId" => $this->postId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates this Post in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo): void {
+		// create query template
+		$query = "UPDATE post SET 
+			postAddress = :postAddress,
+			postCategoryId = :postCategoryId,
+			postDescription = :postDescription,
+			postEnd = :postEnd,
+			postLat = :postLat,
+			postLocation = :postLocation,
+			postLong = :postLong,
+			postProfileId = :postProfileId,
+			postStart = :postStart,
+			postTime = :postTime
+			WHERE postId = :postId";
+		$statement = $pdo->prepare($query);
+		$parameters = [
+			"postId" => $this->postId->getBytes(),
+			"postAddress" => $this->postAddress,
+			"postCategoryId" => $this->postCategoryId,
+			"postDescription" => $this->postDescription,
+			"postEnd" => $this->postEnd,
+			"postLat" => $this->postLat,
+			"postLocation" => $this->postLocation,
+			"postLong" => $this->postLong,
+			"postProfileId" => $this->postProfileId,
+			"postStart" => $this->postStart,
+			"postTime" => $this->postTime
+		];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * gets the Post by postId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $artId art id to search for
+	 * @return Post|null Post found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getPostByPostId(\PDO $pdo, $postId): ?Post {
+		// sanitize the postId before searching
+		try {
+			$postId = self::validateUuid($postId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		// create query template
+		$query = "SELECT
+			postId,
+			postAddress,
+			postCategoryId,
+			postDescription,
+			postEnd,
+			postLat,
+			postLocation,
+			postLong,
+			postProfileId,
+			postStart,
+			postTime
+			FROM post WHERE postId = :postId";
+		$statement = $pdo->prepare($query);
+		// bind the post id to the place holder in the template
+		$parameters = ["postId" => $postId->getBytes()];
+		$statement->execute($parameters);
+		// grab the post from mySQL
+		try {
+			$post = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$post = new Post(
+					$row["postId"],
+					$row["postAddress"],
+					$row["postCategoryId"],
+					$row["postDescription"],
+					$row["postEnd"],
+					$row["postLat"],
+					$row["postLocation"],
+					$row["postLong"],
+					$row["postProfileId"],
+					$row["postStart"],
+					$row["postTime"]
+				);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($post);
+	}
+
+	/**
+	 * gets the Post by distance
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param float $userLat latitude coordinate of where user is
+	 * @param float $userLong longitude coordinate of where user is
+	 * @param float $distance distance in miles that the user is searching by
+	 * @return \SplFixedArray SplFixedArray of pieces of art found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 * **/
+	public static function getPostByDistance(\PDO $pdo, float $userLong, float $userLat, float $distance): \SplFixedArray {
+		// create query template
+		$query = "SELECT 
+			postId,
+			postAddress,
+			postCategoryId,
+			postDescription,
+			postEnd,
+			postLat,
+			postLocation,
+			postLong,
+			postProfileId,
+			postStart,
+			postTime
+			FROM post WHERE haversine(:userLong, :userLat, postLong, postLat) < :distance";
+		$statement = $pdo->prepare($query);
+		// bind the art distance to the place holder in the template
+		$parameters = ["distance" => $distance, "userLat" => $userLat, "userLong" => $userLong];
+		$statement->execute($parameters);
+		// build an array of posts
+		$posts = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$post = new Post(
+					$row["postId"],
+					$row["postAddress"],
+					$row["postCategoryId"],
+					$row["postDescription"],
+					$row["postEnd"],
+					$row["postLat"],
+					$row["postLocation"],
+					$row["postLong"],
+					$row["postProfileId"],
+					$row["postStart"],
+					$row["postTime"]
+				);
+				$posts[$posts->key()] = $post;
+				$posts->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($posts);
+	}
+
+	/**
+	 * gets posts by post profile id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $postProfileId post profile id to search by
+	 * @return \SplFixedArray SplFixedArray of post categories found
+	 * @throws \PDOException when mySQL related error occurs
+	 * @throws \TypeError when a variable is not the correct data type
+	 **/
+	public static function getPostsByPostProfileId(\PDO $pdo, $postProfileId): \SplFixedArray {
+		// sanitize the postProfileId before searching
+		try {
+			$postProfileId = self::validateUuid($postProfileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		// create query template
+		$query = "SELECT postId,
+			postAddress,
+			postCategoryId,
+			postDescription,
+			postEnd,
+			postLat,
+			postLocation,
+			postLong,
+			postProfileId,
+			postStart,
+			postTime
+			FROM post WHERE postProfileId = :postProfileId";
+		// stops direct access to database for formatting
+		$statement = $pdo->prepare($query);
+		$parameters = ["postProfileId" => $postProfileId->getBytes()];
+		$statement->execute($parameters);
+		//build an array of posts
+		$posts = new \SplFixedArray(($statement->rowCount()));
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$post = new Post(
+					$row["postId"],
+					$row["postAddress"],
+					$row["postCategoryId"],
+					$row["postDescription"],
+					$row["postEnd"],
+					$row["postLat"],
+					$row["postLocation"],
+					$row["postLong"],
+					$row["postProfileId"],
+					$row["postStart"],
+					$row["postTime"]
+				);
+				$posts[$posts->key()] = $post;
+				$posts->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($posts);
+	}
+
+
+	/**
+	 * gets posts by post category id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $postCategoryId post category id to search by
+	 * @return \SplFixedArray SplFixedArray of post categories found
+	 * @throws \PDOException when mySQL related error occurs
+	 * @throws \TypeError when a variable is not the correct data type
+	 **/
+	public static function getPostsByPostCategoryId(\PDO $pdo, $postCategoryId): \SplFixedArray {
+		// sanitize the postCategoryId before searching
+		try {
+			$postCategoryId = self::validateUuid($postCategoryId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		// create query template
+		$query = "SELECT postId,
+			postAddress,
+			postCategoryId,
+			postDescription,
+			postEnd,
+			postLat,
+			postLocation,
+			postLong,
+			postProfileId,
+			postStart,
+			postTime
+			FROM post WHERE postCategoryId = :postCategoryId";
+		// stops direct access to database for formatting
+		$statement = $pdo->prepare($query);
+		$parameters = ["postCategoryId" => $postCategoryId->getBytes()];
+		$statement->execute($parameters);
+		//build an array of posts
+		$posts = new \SplFixedArray(($statement->rowCount()));
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$post = new Post(
+					$row["postId"],
+					$row["postAddress"],
+					$row["postCategoryId"],
+					$row["postDescription"],
+					$row["postEnd"],
+					$row["postLat"],
+					$row["postLocation"],
+					$row["postLong"],
+					$row["postProfileId"],
+					$row["postStart"],
+					$row["postTime"]
+				);
+				$posts[$posts->key()] = $post;
+				$posts->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($posts);
+	}
 
 
 
+	/**
+	 * gets all Posts
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Posts found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getAllPosts(\PDO $pdo) : \SPLFixedArray {
+		// create query template
+		$query = "SELECT postId,
+			postAddress,
+			postCategoryId,
+			postDescription,
+			postEnd,
+			postLat,
+			postLocation,
+			postLong,
+			postProfileId,
+			postStart,
+			postTime
+			FROM post";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+		// build an array of posts
+		$posts = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$post = new Post(
+					$row["postId"],
+					$row["postAddress"],
+					$row["postCategoryId"],
+					$row["postDescription"],
+					$row["postEnd"],
+					$row["postLat"],
+					$row["postLocation"],
+					$row["postLong"],
+					$row["postProfileId"],
+					$row["postStart"],
+					$row["postTime"]
+				);
+				$posts[$posts->key()] = $post;
+				$posts->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($posts);
+	}
 
 
+/** TODO: get by post start?, get by post location? is this necessary, or not? if not, how do I do searches by start time?, by location(use lat, long or distance or address?? just through sorting? */
 
 
 
@@ -437,10 +850,12 @@ class Post implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
-	public function jsonSerialize() : array {
+	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 		$fields["postId"] = $this->postId->toString();
-		return($fields);
+		$fields["postCategoryId"] = $this->postCategoryId->toString();
+		$fields["postProfileId"] = $this->postProfileId->toString();
+		return ($fields);
 	}
 }
 
