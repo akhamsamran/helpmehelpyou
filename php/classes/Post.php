@@ -168,7 +168,7 @@ class Post implements \JsonSerializable {
 		if(strlen($newPostAddress) > 140) {
 			throw(new \RangeException("address too large"));
 		}
-		// store the tweet content
+		// store the post content
 		$this->postAddress = $newPostAddress;
 	}
 	/**
@@ -312,6 +312,34 @@ class Post implements \JsonSerializable {
 		// store the artist
 		$this->postLocation = $newPostLocation;
 	}
+
+	/** accessor method for post longitude
+	 *
+	 *
+	 * @return float value of post longitude
+	 **/
+	public function getPostLong() : float {
+		return($this->PostLong);
+	}
+	/** mutator method for post longitude
+	 *
+	 * @param float $newPostLong new value of post longitude
+	 * @throws \InvalidArgumentException if $newPostLong is not a float or insecure
+	 * @throws \RangeException if $newPostLong is not within -180 to 180
+	 * @throws \TypeError if $newPostLong is not a float
+	 **/
+	public function setPostLong(float $newPostLong) : void {
+		// verify the latitude exists on earth
+		if(floatval($newPostLong) > 180) {
+			throw(new \RangeException("post longitude is not between -180 and 180"));
+		}
+		if (floatval($newPostLong) < -180) {
+			throw(new \RangeException("post longitude is not between -180 and 180"));
+		}
+		// store the latitude
+		$this->postLong = $newPostLong;
+	}
+
 
 
 
