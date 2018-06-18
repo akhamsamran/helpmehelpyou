@@ -18,6 +18,12 @@ updated to allow for people to advertise and accept services. (a sort of fusion 
 , a neighbor app, and something like twitter)
 
 Questions:
+get by post start?, get by post location? is this necessary, or not? if not, how do I do searches by start time?, 
+by location(use lat, long or distance or address?? just through sorting?
+
+*****>>>>>SHould I add an attribute to Post that is similar to category, which is pre-set general areas to 
+assist with searching by location, since lat/long and addresses are too specific?<<<<<*****
+
 Would it be better to just do 1 table for the posts and allow people to search by location or time or type?  
 What is the best way to find concurrences? It has to be a 3-way sort: location/time/type.  
 All three from one person
