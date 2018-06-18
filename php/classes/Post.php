@@ -340,6 +340,32 @@ class Post implements \JsonSerializable {
 		$this->postLong = $newPostLong;
 	}
 
+	/**
+	 * accessor method for the post profileId
+	 *
+	 * @return Uuid value of the profile id for the owner of this post
+	 **/
+	public function getPostProfileId(): Uuid {
+		return ($this->postProfileId);
+	}
+	/**
+	 * mutator method for the post profile id
+	 *
+	 * @param Uuid/string $newPostprofileId for the value of the new post profile
+	 * @throws \RangeException if the post profile id is not positive
+	 * @throws \TypeError if the post profile Id is not a uuid
+	 **/
+	public function setPostProfileId( $newPostProfileId) : void {
+		try {
+			$uuid = self::validateUuid($newPostProfileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		// convert and store the post profile id
+		$this->postProfileId = $uuid;
+	}
+
 
 
 
