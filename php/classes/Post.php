@@ -840,9 +840,76 @@ class Post implements \JsonSerializable {
 	}
 
 
-/** TODO: get by post start?, get by post location? is this necessary, or not? if not, how do I do searches by start time?, by location(use lat, long or distance or address?? just through sorting? */
+/**
+ * get posts by postStart
+ *
+ *	@param \PDO $pdo PDO connection object
+ * @return \SplFixedArray SplFixedArray of Posts found or null if not found
+ * @throws \PDOException when mySQL related errors occur
+ * @throws \TypeError when variables are not the correct data type
+ **/
+public static function getPostsByPostStart(\PDO $pdo, $postStart): \SplFixedArray {
+	// sanitize the postStart before searching
+	try {
+		$postStart = self::validateUuid($postStart);
+	} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+		throw(new \PDOException($exception->getMessage(), 0, $exception));
+	}
+	// create query template
+	$query = "SELECT postId,
+			postAddress,
+			postCategoryId,
+			postDescription,
+			postEnd,
+			postLat,
+			postLocation,
+			postLong,
+			postProfileId,
+			postStart,
+			postTime
+			FROM post WHERE postStart BETWEEN :fromdate AND :todate ORDER BY postStart DESC ";
+	// stops direct access to database for formatting
+	$statement = $pdo->prepare($query);
 
+	/**TODO figure this out for postDate range (variables for $fromdate $todate for date range):**/
+	//$fromdate = new DateTime( $_POST['fromdate'] );
+	//$todate   = new DateTime( $_POST['todate'] );
+	//$result->execute( array(
+		//":fromdate" => $fromdate->format( "Y-m-d" ),
+		//":todate"   => $todate->format( "Y-m-d" );
+//));
 
+	$parameters = ["postStart" => $postStart->getBytes()];
+	$statement->execute($parameters);
+	//build an array of posts
+	$posts = new \SplFixedArray(($statement->rowCount()));
+	$statement->setFetchMode(\PDO::FETCH_ASSOC);
+	while(($row = $statement->fetch()) !== false) {
+		try {
+			$post = new Post(
+				$row["postId"],
+				$row["postAddress"],
+				$row["postCategoryId"],
+				$row["postDescription"],
+				$row["postEnd"],
+				$row["postLat"],
+				$row["postLocation"],
+				$row["postLong"],
+				$row["postProfileId"],
+				$row["postStart"],
+				$row["postTime"]
+			);
+			$posts[$posts->key()] = $post;
+			$posts->next();
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+	}
+	return ($posts);
+}
+
+/** TODO: Have to 1st sort by postCategory, then by postStart (range?), then, for location, display them on the map **/
 
 
 	/**
